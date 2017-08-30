@@ -1,0 +1,44 @@
+The warm-up problem in homework 2 is quite comfusing for me at first. I don't 
+understand the difference between the homework 2 style grammar and homework 1
+style grammar. Once I realize that I should return a function instead of a 
+list of lists, the problem becomes easier to implement. I create a helper 
+function to help me find the output of a rule function given certain input
+(the LHS of a rule). Then use the helper function to create a function I need
+for the homework 2 style grammar. My testcases include the giant_grammar in 
+homework1.
+
+As for the implementation of the naive parse, I looked at the hint code
+provided in the course website and finally took the approach discussed
+in the lab section by the TA. The implementation involves creation of two 
+helper functions: one implementing the matcher_and and another implementing
+the marcher_or. The parse_prefix function calls the matcher_or function with
+input as grammar, acceptor and fragments. The matcher_and function tries to
+thoroughly match the fragment with the given acceptor. When the rule has been
+matched and accepted during the implementation, matcher_and calls matcher_or
+to add in the derivation piece. The matcher_or function goes through the rule
+list in the language grammar, matching whatever the first one in the list to
+call the matcher_and function. Thus, these two helper functions are neutrally
+recursive, and use the keyword "and" in the implementation.
+
+The problem I encountered during the implementation is the acceptor. At my
+first trial of implementation, I used the "universal acceptor" everywhere when
+an acceptor is needed in the function call. However, this did not give what I
+want in the output. To be more specific, it could pass several test cases given
+by the course website, but it encountered problems when passing complicated
+arguments. The professor gave a hint as an "incomplete function call" in the 
+lecture. I realized I need a new acceptor to pass in the argument.
+
+The new acceptor is needed in the matcher_and function. When encountering a 
+non-terminal symbol during the execution, we need a nested curried function to
+the recursive call. Therefore, for each non-terminal symbol, the acceptor
+function tends to "accept" more symbols and can pass through more arguments
+in a certain level of execution.
+
+The naive parser has several shortcomings. Most importantly, the parser expects
+the grammar to be left-associative and NOT left-recursive. Take the
+awkish_grammar as an example. We cannot have rules like Term -> [[N Term; N Num]]
+since it is left-recursive and would result in an infinite loop by calling
+matcher_or at the beginning of execution.
+
+My testcases for the naive parse include one adaption of if-else statement in
+the textbook and a very short and naive version of English grammar. 
