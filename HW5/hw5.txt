@@ -1,0 +1,16 @@
+append-ld function cannot pass the test cases provided in the spec. I don’t get what
+the spec says about the function and I don’t know how to implement the function
+correctly. Hence, I follow the convention of append function, put all arguments and
+the car of listdiff into the car position of the output, use the cdr of listdiff as
+the cdr position of the output. But I know it’s not correct…
+
+As for the expr-returning function, I don’t understand the Scheme expression and
+what the spec asks us to do. Hence, I left it as blank and did not finish the work.
+
+As for the listdiff? function, it can pass the test cases provided in the spec. 
+However, when I tried my own test case, such as 
+
+(define test (cons '(1 2 3) '(2 3)))
+
+the function call (listdiff? test) should return #t, but it returns #f instead. I think the difference results from the difference of eq? and equal?. However, in order
+to make the test case work, I need to give up my own test case… That’s weird though.
